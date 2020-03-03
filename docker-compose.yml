@@ -17,6 +17,5 @@ services:
       dockerfile: docker/php/Dockerfile
     environment:
       DEBUG_ENABLED: 1
-      CACHE_ENABLED: 0
     volumes:
       - .:/app/

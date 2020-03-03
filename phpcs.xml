@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset name="Engraving">
+<ruleset name="engraving">
     <rule ref="PSR12"/>
 
     <arg name="basepath" value="."/>
