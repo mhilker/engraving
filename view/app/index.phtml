@@ -1,0 +1,54 @@
+<?php declare(strict_types=1); ?>
+<?php $this->layout('layout::default', ['title' => 'Engraving Framework']) ?>
+
+<div class="container">
+    <div class="row">
+        <div class="column" style="text-align: center">
+            <br>
+            <a href="https://github.com/engraving/skeleton" target="_blank">
+                <img src="/favicon.png" alt="Engraving">
+            </a>
+            <h1>Engraving Skeleton</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="one-half column">
+            <h2>Extensions</h2>
+            <p>This are the installed php extensions:</p>
+            <ul>
+            <?php foreach (get_loaded_extensions() as $extension): ?>
+                <li><?=$extension?></li>
+            <?php endforeach ?>
+            </ul>
+        </div>
+        <div class="one-half column">
+            <h2>SPX</h2>
+            <?php if (in_array('SPX', get_loaded_extensions()) === true): ?>
+                <p>SPX is available. <a href="<?=ini_get('spx.http_ui_uri_prefix')?>?SPX_KEY=<?=ini_get('spx.http_key')?>" target="_blank">Start profiling now!</a></p>
+            <?php else: ?>
+                <p>SPX is <u>not</u> available.</p>
+            <?php endif ?>
+            <p><a href="https://github.com/NoiseByNorthwest/php-spx" target="_blank">More about SPX</a></p>
+        </div>
+        <div class="one-half column">
+            <h2>OPcache</h2>
+            <?php if (in_array('Zend OPcache', get_loaded_extensions()) === true): ?>
+                <?php $status = opcache_get_status() ?>
+                <p>
+                    OPcache is available and is using
+                    <?=round($status['memory_usage']['used_memory']/1024/1024, 2)?> MB of
+                    <?=round($status['memory_usage']['free_memory']/1024/1024, 2)?> MB memory.
+                </p>
+            <?php else: ?>
+                <p>OPcache is <u>not</u> available.</p>
+            <?php endif ?>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="column">
+            <p>2017-2018 Engraving Skeleton - CSS by <a href="http://getskeleton.com/">getskeleton.com</a></p>
+        </div>
+    </div>
+</div>

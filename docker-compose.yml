@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+
+  web:
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/app/
+
+  php:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    environment:
+      DEBUG_ENABLED: 1
+      CACHE_ENABLED: 0
+    volumes:
+      - .:/app/
