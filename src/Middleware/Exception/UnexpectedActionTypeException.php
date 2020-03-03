@@ -2,16 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Engraving\Middleware\Middleware\Exception;
+namespace Engraving\Middleware\Exception;
 
 use Psr\Http\Server\RequestHandlerInterface;
+use UnexpectedValueException;
 
-class UnexpectedActionTypeException extends \UnexpectedValueException implements MiddlewareException
+final class UnexpectedActionTypeException extends UnexpectedValueException implements MiddlewareException
 {
-    /**
-     * @param mixed $item
-     * @return UnexpectedActionTypeException
-     */
     public static function invalidType($item): self
     {
         return new static(sprintf(

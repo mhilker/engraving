@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace Engraving\Router\FastRoute\Exception;
 
 use Engraving\Router\Exception\RouterException;
+use Exception;
 
-class LogicException extends \LogicException implements RouterException
+final class LogicException extends Exception implements RouterException
 {
 
 }

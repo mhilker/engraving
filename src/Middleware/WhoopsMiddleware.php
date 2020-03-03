@@ -11,7 +11,7 @@ use Psr\Http\Server\RequestHandlerInterface;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
 
-class WhoopsMiddleware implements MiddlewareInterface
+final class WhoopsMiddleware implements MiddlewareInterface
 {
     public function __construct()
     {

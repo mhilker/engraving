@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Engraving\Application\Application;
+use Engraving\Application;
 use GuzzleHttp\Psr7\ServerRequest;
 
 (static function () {

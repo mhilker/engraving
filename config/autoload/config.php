@@ -9,8 +9,8 @@ use App\Action\Factory\RouteNotFoundActionFactory;
 use App\Action\IndexAction;
 use App\Middleware\WhoopsMiddleware;
 use Engraving\Container\Factory\InvokableFactory;
-use Engraving\Middleware\Middleware\ExceptionMiddleware;
-use Engraving\Middleware\Middleware\RoutingMiddleware;
+use Engraving\Middleware\ExceptionMiddleware;
+use Engraving\Middleware\RoutingMiddleware;
 
 return [
     'dependencies' => [

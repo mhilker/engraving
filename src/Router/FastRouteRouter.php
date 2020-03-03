@@ -2,57 +2,34 @@
 
 declare(strict_types=1);
 
-namespace Engraving\Router\FastRoute;
+namespace Engraving\Router;
 
-use Engraving\Router\Exception\RouterException;
 use Engraving\Router\FastRoute\Exception\LogicException;
 use Engraving\Router\RouteMatch\RouteMatch;
 use Engraving\Router\RouteMatch\RouteMatchInterface;
-use Engraving\Router\RouterInterface;
+use Exception;
 use FastRoute\Dispatcher;
 use Psr\Http\Message\ServerRequestInterface;
 
-class FastRouteRouter implements RouterInterface
+final class FastRouteRouter implements RouterInterface
 {
-    /**
-     * @var Dispatcher
-     */
-    private $dispatcher;
+    private Dispatcher $dispatcher;
 
-    /**
-     * @param Dispatcher $dispatcher
-     */
     public function __construct(Dispatcher $dispatcher)
     {
         $this->dispatcher = $dispatcher;
     }
 
-    /**
-     * Try to match the given $serverRequest and return a RouteMatch.
-     *
-     * @param ServerRequestInterface $serverRequest
-     *
-     * @throws RouterException
-     *
-     * @return RouteMatchInterface
-     */
     public function match(ServerRequestInterface $serverRequest): RouteMatchInterface
     {
         try {
             return $this->dispatchToRouter($serverRequest);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             // TODO: add specific exception
-            throw new \Exception('Error during dispatch to router.', 0, $exception);
+            throw new Exception('Error during dispatch to router.', 0, $exception);
         }
     }
 
-    /**
-     * @param ServerRequestInterface $serverRequest
-     *
-     * @throws LogicException
-     *
-     * @return RouteMatch
-     */
     private function dispatchToRouter(ServerRequestInterface $serverRequest): RouteMatch
     {
         $method = $serverRequest->getMethod();

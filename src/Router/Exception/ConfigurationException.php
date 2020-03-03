@@ -5,14 +5,10 @@ declare(strict_types=1);
 namespace Engraving\Router\FastRoute\Exception;
 
 use Engraving\Router\Exception\RouterException;
+use Exception;
 
-class ConfigurationException extends \InvalidArgumentException implements RouterException
+final class ConfigurationException extends Exception implements RouterException
 {
-    /**
-     * @param mixed $value
-     *
-     * @return ConfigurationException
-     */
     public static function invalidOptions($value): self
     {
         return new static(sprintf(
@@ -21,11 +17,6 @@ class ConfigurationException extends \InvalidArgumentException implements Router
         ));
     }
 
-    /**
-     * @param mixed $value
-     *
-     * @return ConfigurationException
-     */
     public static function invalidRoutes($value): self
     {
         return new static(sprintf(

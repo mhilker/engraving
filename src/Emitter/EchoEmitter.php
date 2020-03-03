@@ -8,13 +8,6 @@ use Psr\Http\Message\ResponseInterface;
 
 class EchoEmitter implements EmitterInterface
 {
-    /**
-     * Emit the response.
-     *
-     * @param ResponseInterface $response
-     *
-     * @return void
-     */
     public function emit(ResponseInterface $response): void
     {
         // Emit http status code
@@ -25,7 +18,7 @@ class EchoEmitter implements EmitterInterface
             $response->getReasonPhrase()
         ) . PHP_EOL;
 
-        // Emit headers iteratively
+        // Emit headers
         foreach ($response->getHeaders() as $name => $values) {
             foreach ($values as $value) {
                 echo sprintf('%s: %s', $name, $value) . PHP_EOL;

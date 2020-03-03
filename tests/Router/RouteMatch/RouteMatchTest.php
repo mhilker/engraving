@@ -2,22 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Engraving\Test\Unit\Router;
+namespace Engraving\Router\RouteMatch;
 
 use Engraving\Router\Exception\BadMethodCallException;
-use Engraving\Router\RouteMatch\RouteMatch;
 use PHPUnit\Framework\TestCase;
 
-class RouteMatchTest extends TestCase
+/**
+ * @covers \Engraving\Router\RouteMatch\RouteMatch
+ */
+final class RouteMatchTest extends TestCase
 {
-    /**
-     * @covers \Engraving\Router\RouteMatch\RouteMatch::__construct
-     * @covers \Engraving\Router\RouteMatch\RouteMatch::fromSuccess
-     * @covers \Engraving\Router\RouteMatch\RouteMatch::getAction
-     * @covers \Engraving\Router\RouteMatch\RouteMatch::getParameters
-     * @covers \Engraving\Router\RouteMatch\RouteMatch::getAllowedMethods
-     */
-    public function testCanCreateSuccessfullRouteMatch(): void
+    public function testCanCreateSuccessfulRouteMatch(): void
     {
         $routeMatch = RouteMatch::fromSuccess('test', ['foo' => 'bar']);
 
@@ -29,13 +24,6 @@ class RouteMatchTest extends TestCase
         $this->assertEquals(['foo' => 'bar'], $routeMatch->getParameters());
     }
 
-    /**
-     * @covers \Engraving\Router\RouteMatch\RouteMatch::__construct
-     * @covers \Engraving\Router\RouteMatch\RouteMatch::fromFailure
-     * @covers \Engraving\Router\RouteMatch\RouteMatch::isFailure
-     * @covers \Engraving\Router\RouteMatch\RouteMatch::isSuccess
-     * @covers \Engraving\Router\RouteMatch\RouteMatch::isMethodFailure
-     */
     public function testCanCreateRouteMatchFromFailure(): void
     {
         $routeMatch = RouteMatch::fromFailure();
@@ -45,14 +33,6 @@ class RouteMatchTest extends TestCase
         $this->assertFalse($routeMatch->isMethodFailure());
     }
 
-    /**
-     * @covers \Engraving\Router\RouteMatch\RouteMatch::__construct
-     * @covers \Engraving\Router\RouteMatch\RouteMatch::fromFailure
-     * @covers \Engraving\Router\RouteMatch\RouteMatch::getAllowedMethods
-     * @covers \Engraving\Router\RouteMatch\RouteMatch::isFailure
-     * @covers \Engraving\Router\RouteMatch\RouteMatch::isSuccess
-     * @covers \Engraving\Router\RouteMatch\RouteMatch::isMethodFailure
-     */
     public function testCanCreateRouteMatchWithMethodFailure(): void
     {
         $routeMatch = RouteMatch::fromFailure(['GET', 'POST']);
@@ -63,12 +43,6 @@ class RouteMatchTest extends TestCase
         $this->assertEquals(['GET', 'POST'], $routeMatch->getAllowedMethods());
     }
 
-    /**
-     * @uses \Engraving\Router\RouteMatch\RouteMatch::__construct
-     * @uses \Engraving\Router\RouteMatch\RouteMatch::fromFailure
-     * @uses \Engraving\Router\RouteMatch\RouteMatch::isMethodFailure
-     * @covers \Engraving\Router\RouteMatch\RouteMatch::getAction
-     */
     public function testThrowsExceptionToAccessActionFromFailedRouteMatch(): void
     {
         $this->expectException(BadMethodCallException::class);
@@ -78,12 +52,6 @@ class RouteMatchTest extends TestCase
         $routeMatch->getAction();
     }
 
-    /**
-     * @uses \Engraving\Router\RouteMatch\RouteMatch::__construct
-     * @uses \Engraving\Router\RouteMatch\RouteMatch::fromFailure
-     * @uses \Engraving\Router\RouteMatch\RouteMatch::isMethodFailure
-     * @covers \Engraving\Router\RouteMatch\RouteMatch::getParameters
-     */
     public function testThrowsExceptionToAccessParametersFromFailedRouteMatch(): void
     {
         $this->expectException(BadMethodCallException::class);
@@ -93,12 +61,6 @@ class RouteMatchTest extends TestCase
         $routeMatch->getParameters();
     }
 
-    /**
-     * @uses \Engraving\Router\RouteMatch\RouteMatch::__construct
-     * @uses \Engraving\Router\RouteMatch\RouteMatch::fromFailure
-     * @uses \Engraving\Router\RouteMatch\RouteMatch::isMethodFailure
-     * @covers \Engraving\Router\RouteMatch\RouteMatch::getAllowedMethods
-     */
     public function testThrowsExceptionToAccessAllowedMethodsFromNonMethodFailureRouteMatch(): void
     {
         $this->expectException(BadMethodCallException::class);

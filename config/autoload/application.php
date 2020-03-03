@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Engraving\Application\Application;
+use Engraving\Application;
 use Engraving\Application\Factory\ApplicationFactory;
 use Engraving\Container\Factory\InvokableFactory;
 use Engraving\Emitter\EmitterInterface;

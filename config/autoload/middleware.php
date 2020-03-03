@@ -3,14 +3,15 @@
 declare(strict_types=1);
 
 use App\Middleware\WhoopsMiddleware;
-use Engraving\Middleware\Middleware\DispatchMiddleware;
-use Engraving\Middleware\Middleware\ExceptionMiddleware;
-use Engraving\Middleware\Middleware\Factory\DispatchMiddlewareFactory;
-use Engraving\Middleware\Middleware\Factory\ExceptionMiddlewareFactory;
-use Engraving\Middleware\Middleware\Factory\RoutingMiddlewareFactory;
-use Engraving\Middleware\Middleware\RoutingMiddleware;
+use Engraving\Middleware\DispatchMiddleware;
+use Engraving\Middleware\ExceptionMiddleware;
+use Engraving\Middleware\Factory\DispatchMiddlewareFactory;
+use Engraving\Middleware\Factory\ExceptionMiddlewareFactory;
+use Engraving\Middleware\Factory\RoutingMiddlewareFactory;
+use Engraving\Middleware\RoutingMiddleware;
 use Engraving\Middleware\Pipeline\Factory\QueuePipelineFactory;
 use Engraving\Middleware\Pipeline\PipelineInterface;
+use Engraving\Util\Env;
 
 return [
     'dependencies' => [
@@ -26,7 +27,7 @@ return [
     ],
     'middleware' => [
         'pipeline' => array_merge_recursive(
-            \Engraving\Util\Env::bool('DEBUG_ENABLED', false) ? ([
+            Env::bool('DEBUG_ENABLED', false) ? ([
                 [
                     'name' => WhoopsMiddleware::class,
                 ]

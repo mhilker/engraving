@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Engraving\Middleware\Middleware\Exception;
+namespace Engraving\Middleware\Exception;
 
 interface MiddlewareException
 {

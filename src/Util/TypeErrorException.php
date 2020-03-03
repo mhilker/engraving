@@ -2,16 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Engraving\Exception;
+namespace Engraving\Util;
 
-class TypeErrorException extends \Exception
+use Exception;
+
+final class TypeErrorException extends Exception
 {
-    /**
-     * @param mixed $value
-     * @param string $expectedType
-     *
-     * @return TypeErrorException
-     */
     public static function invalidType($value, string $expectedType): self
     {
         return new self(sprintf(

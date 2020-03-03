@@ -2,42 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Engraving\Middleware\Middleware;
+namespace Engraving\Middleware;
 
-use Engraving\Middleware\Middleware\Exception\UnexpectedActionTypeException;
+use Engraving\Middleware\Exception\UnexpectedActionTypeException;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-class DispatchMiddleware implements MiddlewareInterface
+final class DispatchMiddleware implements MiddlewareInterface
 {
-    /**
-     * @var ContainerInterface
-     */
-    private $container;
+    private ContainerInterface $container;
 
-    /**
-     * @param ContainerInterface $container
-     */
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
     }
 
-    /**
-     * Process an incoming server request and return a response, optionally delegating
-     * to the next middleware component to create the response.
-     *
-     * @param ServerRequestInterface $request
-     * @param RequestHandlerInterface $handler
-     *
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
-     *
-     * @return ResponseInterface
-     */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $actionName = $request->getAttribute('actionName');

@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Engraving\Test\Unit\Template;
+namespace Engraving\Template\Exception;
 
-use Engraving\Template\Exception\RendererEngineException;
 use PHPUnit\Framework\TestCase;
 
-class RendererEngineExceptionTest extends TestCase
+final class RendererEngineExceptionTest extends TestCase
 {
     public function testCanFormatExceptionMessage(): void
     {
