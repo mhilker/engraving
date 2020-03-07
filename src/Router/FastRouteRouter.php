@@ -10,6 +10,7 @@ use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+
 use function FastRoute\simpleDispatcher;
 
 final class FastRouteRouter implements Router
