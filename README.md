@@ -1,6 +1,7 @@
 # Engraving
 
 [![Software License][ico-license]](LICENSE.md)
+[![Workflow][ico-workflow]](https://github.com/mhilker/engraving/actions)
 
 ## Disclaimer
 
@@ -46,3 +47,4 @@ If you discover any security related issues, please email `maikhilker89@gmail.co
 The MIT License (MIT). Please see the [license file](LICENSE.md) for more information.
 
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
+[ico-workflow]: https://img.shields.io/github/workflow/status/mhilker/engraving/build?style=flat-square
