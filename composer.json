@@ -1,6 +1,6 @@
 {
     "name": "engraving/engraving",
-    "description": "Engraving",
+    "description": "Engraving HTTP Application",
     "type": "library",
     "license": "MIT",
     "authors": [
