@@ -1,10 +1,6 @@
-![Engraving](https://raw.githubusercontent.com/engraving/skeleton/master/public/favicon.png)
-
 # Engraving
 
 [![Software License][ico-license]](LICENSE.md)
-
-Engraving Framework
 
 ## Disclaimer
 
@@ -20,7 +16,7 @@ Should you use this package? Probably not. This package is purely educational, a
 Via Composer
 
 ``` bash
-$ docker run -v $PWD:/app --rm -it composer:latest composer install
+$ composer install
 ```
 
 ## Run
