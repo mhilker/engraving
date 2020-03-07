@@ -15,7 +15,5 @@ services:
     build:
       context: .
       dockerfile: docker/php/Dockerfile
-    environment:
-      DEBUG_ENABLED: 1
     volumes:
       - .:/app/

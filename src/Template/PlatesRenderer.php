@@ -4,25 +4,28 @@ declare(strict_types=1);
 
 namespace Engraving\Template;
 
-use Engraving\Template\Exception\RendererEngineException;
+use Engraving\Template\Exception\RendererException;
 use Exception;
 use League\Plates\Engine;
 
-final class PlatesRenderer implements RendererInterface
+final class PlatesRenderer implements Renderer
 {
-    private Engine $platesEngine;
+    private Engine $plates;
 
-    public function __construct(Engine $platesEngine)
+    public function __construct(Engine $plates)
     {
-        $this->platesEngine = $platesEngine;
+        $this->plates = $plates;
     }
 
-    public function render(string $template, array $variables): string
+    /**
+     * @throws RendererException
+     */
+    public function render(string $template, array $variables = []): string
     {
         try {
-            return $this->platesEngine->render($template, $variables);
+            return $this->plates->render($template, $variables);
         } catch (Exception $exception) {
-            throw RendererEngineException::withPrevious($template, $exception);
+            throw RendererException::withPrevious($template, $exception);
         }
     }
 }

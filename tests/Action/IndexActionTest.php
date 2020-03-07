@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Engraving\Action;
 
-use Engraving\Template\RendererInterface;
+use Engraving\Template\Renderer;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -17,7 +17,7 @@ final class IndexActionTest extends TestCase
     public function testCanReturnResponse(): void
     {
         $request = $this->createMock(ServerRequestInterface::class);
-        $renderer = $this->createMock(RendererInterface::class);
+        $renderer = $this->createMock(Renderer::class);
 
         $action = new IndexAction($renderer);
         $response = $action->handle($request);

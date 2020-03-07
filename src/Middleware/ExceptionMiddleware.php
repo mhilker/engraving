@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Engraving\Middleware;
 
+use Engraving\Template\Renderer;
+use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -12,24 +14,27 @@ use Throwable;
 
 final class ExceptionMiddleware implements MiddlewareInterface
 {
-    public const EXCEPTION_ACTION = 'EXCEPTION_ACTION';
+    private Renderer $renderer;
 
-    private RequestHandlerInterface $errorHandler;
-
-    public function __construct(RequestHandlerInterface $errorHandler)
+    public function __construct(Renderer $renderer)
     {
-        $this->errorHandler = $errorHandler;
+        $this->renderer = $renderer;
     }
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         try {
-            $response = $handler->handle($request);
+            return $handler->handle($request);
         } catch (Throwable $exception) {
-            $request = $request->withAttribute('exception', $exception);
-            $response = $this->errorHandler->handle($request);
+            return $this->handleException($exception);
         }
+    }
 
-        return $response;
+    protected function handleException($exception): Response
+    {
+        $html = $this->renderer->render('error-500', [
+            'exception' => $exception,
+        ]);
+        return new Response(500, ['Content-Type' => 'text/html; charset=UTF-8'], $html);
     }
 }

@@ -12,19 +12,11 @@ final class PlatesRendererTest extends TestCase
 {
     public function testRenderTemplateWithPathAndVariables(): void
     {
-        $filename = 'foofile';
-        $variables = ['foo' => 'bar'];
-        $rendered = '<b>result</b>';
-
-        $platesEngine = $this->createMock(Engine::class);
-        $platesEngine->expects($this->once())
-            ->method('render')
-            ->with($filename, $variables)
-            ->willReturn($rendered);
+        $platesEngine = new Engine(__DIR__ . '/_files/', 'phtml');
 
         $renderer = new PlatesRenderer($platesEngine);
-        $result = $renderer->render($filename, $variables);
+        $result = $renderer->render('template', ['foo' => 'bar']);
 
-        $this->assertEquals($rendered, $result);
+        $this->assertXmlStringEqualsXmlString('<b>bar</b>', $result);
     }
 }

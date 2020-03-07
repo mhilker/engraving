@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Engraving\Router;
 
-use Engraving\Router\RouteMatch\RouteMatchInterface;
 use FastRoute\Dispatcher;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
@@ -29,6 +28,6 @@ final class FastRouteRouterTest extends TestCase
         $router = new FastRouteRouter($dispatcher);
         $routeMatch = $router->match($request);
 
-        $this->assertInstanceOf(RouteMatchInterface::class, $routeMatch);
+        $this->assertInstanceOf(RouteMatch::class, $routeMatch);
     }
 }

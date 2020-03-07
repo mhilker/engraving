@@ -4,50 +4,69 @@ declare(strict_types=1);
 
 namespace Engraving\Router;
 
-use Engraving\Router\FastRoute\Exception\LogicException;
-use Engraving\Router\RouteMatch\RouteMatch;
-use Engraving\Router\RouteMatch\RouteMatchInterface;
+use Engraving\Router\Exception\RouterException;
 use Exception;
 use FastRoute\Dispatcher;
+use FastRoute\RouteCollector;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
+use function FastRoute\simpleDispatcher;
 
-final class FastRouteRouter implements RouterInterface
+final class FastRouteRouter implements Router
 {
-    private Dispatcher $dispatcher;
+    private ?Dispatcher $dispatcher = null;
 
-    public function __construct(Dispatcher $dispatcher)
+    private array $routes = [];
+
+    public function addRoute(string $method, string $pattern, RequestHandlerInterface $handler): void
     {
-        $this->dispatcher = $dispatcher;
+        $this->routes[] = [$method, $pattern, $handler];
     }
 
-    public function match(ServerRequestInterface $serverRequest): RouteMatchInterface
+    /**
+     * @throws RouterException
+     */
+    public function match(ServerRequestInterface $serverRequest): RouteMatch
     {
         try {
             return $this->dispatchToRouter($serverRequest);
         } catch (Exception $exception) {
-            // TODO: add specific exception
-            throw new Exception('Error during dispatch to router.', 0, $exception);
+            throw new RouterException('Error during dispatch to router', 0, $exception);
         }
     }
 
+    /**
+     * @throws RouterException
+     */
     private function dispatchToRouter(ServerRequestInterface $serverRequest): RouteMatch
     {
         $method = $serverRequest->getMethod();
         $path = $serverRequest->getUri()->getPath();
 
-        $routeInfo = $this->dispatcher->dispatch($method, $path);
+        $result = $this->buildDispatcher()->dispatch($method, $path);
 
-        switch ($routeInfo[0]) {
+        switch ($result[0]) {
             case Dispatcher::NOT_FOUND:
                 return RouteMatch::fromFailure();
-
             case Dispatcher::METHOD_NOT_ALLOWED:
-                return RouteMatch::fromFailure($routeInfo[1]);
-
+                return RouteMatch::fromFailure($result[1]);
             case Dispatcher::FOUND:
-                return RouteMatch::fromSuccess($routeInfo[1], $routeInfo[2]);
+                return RouteMatch::fromSuccess($result[1], $result[2]);
+            default:
+                throw new RouterException('Could not handle router result');
+        }
+    }
+
+    private function buildDispatcher(): Dispatcher
+    {
+        if ($this->dispatcher !== null) {
+            return $this->dispatcher;
         }
 
-        throw new LogicException('This instruction should not be reached.');
+        return simpleDispatcher(function (RouteCollector $r) {
+            foreach ($this->routes as [$method, $pattern, $handler]) {
+                $r->addRoute($method, $pattern, $handler);
+            }
+        });
     }
 }
