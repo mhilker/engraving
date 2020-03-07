@@ -28,7 +28,8 @@ jobs:
         run: docker-compose up -d
 
       - name: Load home page
-        run: curl --silent --show-error --fail -XGET http://localhost:8080
+        #run: curl --silent --show-error --fail -XGET http://localhost:8080
+        run: curl --show-error -XGET http://localhost:8080/
 
       - name: Shut down containers
         run: docker-compose down
