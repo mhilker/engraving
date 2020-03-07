@@ -20,14 +20,6 @@ Via Composer
 $ composer install
 ```
 
-## Run
-
-To run the project, just use `docker-compose`.
-
-``` bash
-$ docker-compose up
-```
-
 ## Changelog
 
 Please see the [changelog](CHANGELOG.md) for more information on what has changed recently.

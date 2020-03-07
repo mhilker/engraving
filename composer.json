@@ -16,20 +16,22 @@
     "prefer-stable": true,
     "require": {
         "php": "7.4.*",
-        "ext-zend-opcache": "*",
-        "guzzlehttp/psr7": "^1.4",
-        "http-interop/response-sender": "^1.0",
-        "league/plates": "^3.3",
-        "nikic/fast-route": "^1.3",
-        "php-di/php-di": "^6.0",
         "psr/container": "^1.0",
         "psr/http-message": "^1.0",
         "psr/http-server-middleware": "^1.0"
     },
+    "suggest": {
+        "http-interop/response-sender": "To use the HttpInteropResponseEmitter",
+        "league/plates": "To use the PlatesRenderer",
+        "nikic/fast-route": "To use the FastRouteRouter"
+    },
     "require-dev": {
         "filp/whoops": "^2.1",
         "phpunit/phpunit": "^9.0",
-        "squizlabs/php_codesniffer": "^3.5"
+        "squizlabs/php_codesniffer": "^3.5",
+        "http-interop/response-sender": "^1.0",
+        "league/plates": "^3.3",
+        "nikic/fast-route": "^1.3"
     },
     "autoload": {
         "psr-4": {

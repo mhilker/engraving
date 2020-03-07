@@ -20,15 +20,3 @@ jobs:
 
       - name: Run phpunit
         run: ./vendor/bin/phpunit
-
-      - name: Build containers
-        run: docker-compose build
-
-      - name: Run containers
-        run: docker-compose up -d
-
-      - name: Test home page
-        run: sleep 10 && curl --silent --show-error --fail -XGET http://localhost:8080
-
-      - name: Shut down containers
-        run: docker-compose down
